@@ -61,7 +61,7 @@ public class HotelServiceImpl implements HotelService {
 		
 		List<Hotel> hoteles =  this.hotelRepository.findFiltro(filtroHabitacion).stream().filter(element -> {			
 				element.setHabitaciones(this.filterHabitacionPersona(element.getHabitaciones(), filtroHabitacion.getCantidadPersona()));
-				return filtroHabitacion.getCiudad().equals(element.getCiudad());	
+				return filtroHabitacion.getCiudad().equalsIgnoreCase(element.getCiudad());	
 			}).collect(Collectors.toList());
 		 
 		return this.filtraFechaReserva(hoteles, filtroHabitacion);
@@ -102,7 +102,7 @@ public class HotelServiceImpl implements HotelService {
 	 * @return
 	 */
 	private List<Habitacion> filterHabitacionPersona(List<Habitacion> habitaciones, String cantidadPersona) {
-		return habitaciones.stream().filter(h -> h.getCantidadPersona().equals(cantidadPersona)).collect(Collectors.toList());
+		return habitaciones.stream().filter(h -> (h.getCantidadPersona().equals(cantidadPersona))).collect(Collectors.toList());
 	}
 	
 }
